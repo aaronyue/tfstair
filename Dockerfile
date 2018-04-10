@@ -7,9 +7,9 @@ COPY docker-entrypoint.sh /
 ADD conf.tar.gz / 
 
 
-ENV TBLIB_ROOT /usr/local
+ENV TBLIB_ROOT=/usr/local TZ=Asia/Shanghai
 
-RUN yum clean all && \
+RUN echo $TZ > /etc/timezone && yum clean all && \
     yum -y install unzip gperftools-devel.x86_64 jemalloc-devel.x86_64 gcc.x86_64 gcc-c++.x86_64 make.x86_64 automake.noarch libtool.x86_64 readline-devel.x86_64 libuuid-devel zlib-devel mysql-devel wget tar subversion.x86_64 && \
     mkdir /tmp/taobao && cd /tmp/taobao && \
     svn checkout -r 18 http://code.taobao.org/svn/tb-common-utils/trunk/ tb-common-utils && \
